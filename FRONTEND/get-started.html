@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PromptCraft - Get Started</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #67b26f, #4ca2cd);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    #main-container {
+      width: 80%;
+      max-width: 1200px;
+      padding: 40px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
+      color: #333;
+      animation: fadeIn 1.5s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(50px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #f7f8fc;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .form-container textarea,
+    .form-container button {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 5px;
+      font-size: 1rem;
+      border: none;
+    }
+
+    textarea {
+      background-color: #f0f0f0;
+      height: 150px;
+    }
+
+    .form-container button {
+      background-color: #4a90e2;
+      color: white;
+      cursor: pointer;
+    }
+
+    .form-container button:hover {
+      background-color: #357ab7;
+    }
+
+    .nav-container {
+      margin-top: 30px;
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    nav, #admin-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    nav .btn {
+      background: linear-gradient(135deg, #4a90e2, #007aff);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
+
+    nav .btn:hover {
+      background: linear-gradient(135deg, #357ab7, #005ecb);
+      transform: translateY(-3px) scale(1.03);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 1rem;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      .form-container { padding: 10px; }
+    }
+    .navigate-button {
+    background-color: #00b9f1;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    border: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .navigate-button:hover {
+    background-color: #009fd1;
+  }
+  </style>
+</head>
+<body>
+  <div id="main-container">
+    <h1>Welcome to PromptCraft - Get Started</h1>
+    <p>Optimize and version-control your prompts for AI code generation, debugging, and more.</p>
+    <div class="form-container">
+      <h2>Enter Your Prompt</h2>
+      <textarea id="promptEditor" placeholder="Enter a prompt here..."></textarea>
+      <button onclick="generateOutput()">Generate Output</button>
+      <button id="savePromptBtn"> Save Prompt</button>
+      <button id="loadPromptBtn">Load Prompt</button>
+      <p id="output"></p>
+    </div>
+
+    <div>
+      <button class="btn" onclick="logoutUser()">Logout</button>
+    </div>
+
+    <div class="nav-container">
+      <nav>
+        <button class="btn" onclick="window.location.href='prompteditor.html';">Prompt Editor</button>
+        <button class="btn" onclick="window.location.href='llmgenerate.html';">LLM Generate</button>
+        <button class="btn" onclick="window.location.href='feedback.html';">Feedback</button>
+        <button class="btn" onclick="window.location.href='history.html';">LLM History</button>
+        <button class="btn" onclick="window.location.href='evaluation.html';">Evaluation</button>
+        <button class="btn" onclick="window.location.href='analytics.html';">Analytics</button>
+      </nav>
+      <div id="admin-nav" style="display:none;">
+        <button class="btn" onclick="window.location.href='admin-users.html';">Admin Users</button>
+        <button class="btn" onclick="window.location.href='admin-prompts.html';">Admin Prompts</button>
+        <button class="btn" onclick="window.location.href='admin-analytics.html';">Admin Dashboard</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Redirect if not logged in
+    if (!localStorage.getItem('isLoggedIn')) {
+      window.location.href = 'login.html';
+    }
+
+    window.onload = function () {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user?.role === "admin") {
+        document.getElementById("admin-nav").style.display = "block";
+      }
+    };
+
+    async function savePromptToDB(promptText) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch("http://127.0.0.1:8000/api/v1/prompts/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      input_text: promptText,
+      purpose: "generate_output",
+      name: "User Prompt",
+      description: "Prompt submitted from frontend",
+      tags: [],
+      prompt_metadata: {}
+    })
+  });
+
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(`Save failed: ${err}`);
+  }
+
+  const data = await response.json();
+  const promptId = data.prompt_id || data.id;  // ✅ Handles both cases
+
+  if (!promptId) {
+    throw new Error("❌ Backend did not return a valid prompt ID");
+  }
+
+  console.log("📌 Prompt saved with ID:", promptId);
+  localStorage.setItem("selectedPromptId", promptId);
+  return promptId;
+}
+
+    async function generateOutput() {
+      const token = localStorage.getItem("token");
+      const userInput = document.getElementById("promptEditor").value;
+      const outputDiv = document.getElementById("output");
+      const button = document.querySelector("button[onclick='generateOutput()']");
+
+      outputDiv.innerText = "";
+      button.disabled = true;
+      button.innerText = "Generating...";
+
+      try {
+        const promptId = await savePromptToDB(userInput);
+        console.log("📤 Sending prompt_id:", promptId);
+
+        if (!promptId) throw new Error("Prompt ID is undefined — check savePromptToDB()");
+
+        const res = await fetch("http://127.0.0.1:8000/api/v1/llm/generate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            prompt_id: promptId,
+            model_name: "gpt-3.5-turbo",
+            provider: "openai",
+            llm_parameters: {
+              temperature: 0.7,
+              max_tokens: 300
+            }
+          })
+        });
+
+        if (!res.ok) {
+          const err = await res.text();
+          throw new Error(`Generation failed: ${err}`);
+        }
+
+        const data = await res.json();
+        outputDiv.innerText = data.generated_text;
+      } catch (err) {
+        outputDiv.innerText = "❌ Error: " + err.message;
+      } finally {
+        button.disabled = false;
+        button.innerText = "Generate Output";
+      }
+    }
+
+    function logoutUser() {
+      localStorage.clear();
+      window.location.href = 'login.html';
+    }
+  </script>
+  <script src="promptService.js" type="module"></script>
+  <script src="PromptEditor.js" type="module"></script>
+  <script src="PromptEvaluation.js" type="module"></script>
+  <script src="VersionHistory.js" type="module"></script>
+</body>
+</html>

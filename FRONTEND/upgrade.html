@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Unlock Premium Features - Pay Arp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #0072ff;
+      --secondary-blue: #00c6ff;
+      --text-dark: #222;
+      --text-medium: #555;
+      --text-light: #777;
+      --bg-light: #f8f8f8;
+      --bg-white: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-white); /* White background as in the image */
+      color: var(--text-dark);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden; /* Prevent horizontal scroll */
+    }
+
+    /* --- Navigation Bar --- */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      position: relative;
+      z-index: 100; /* Ensure it's on top */
+      max-width: 1400px; /* Limit width */
+      margin: 0 auto; /* Center navbar */
+      width: 100%;
+    }
+
+    .navbar .nav-links {
+      display: flex;
+      gap: 50px;
+    }
+
+    .navbar .nav-links a {
+      color: var(--text-medium);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.3rem;
+      transition: color 0.3s ease;
+    }
+
+    .navbar .nav-links a:hover {
+      color: var(--primary-blue);
+    }
+
+    /* --- Main Content Section --- */
+    .premium-section {
+      flex-grow: 1; /* Allows section to take available height */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px; /* Reduced top/bottom padding */
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background Circles/Shapes */
+    .premium-section::before,
+    .premium-section::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px); /* Soft blur effect */
+      opacity: 0.2; /* Subtle opacity */
+      z-index: 0;
+    }
+
+    .premium-section::before {
+      width: 400px;
+      height: 400px;
+      background: var(--secondary-blue);
+      top: -150px;
+      left: -150px;
+    }
+
+    .premium-section::after {
+      width: 300px;
+      height: 300px;
+      background: var(--primary-blue);
+      bottom: -100px;
+      right: -100px;
+    }
+
+    .premium-content {
+      text-align: center;
+      max-width: 800px; /* Adjust as per your image for content width */
+      position: relative;
+      z-index: 1; /* Ensure content is above background shapes */
+      padding: 20px; /* Inner padding for content */
+    }
+
+    .premium-content h1 {
+      font-size: 4rem; /* Larger heading as in the image */
+      font-weight: 800; /* Extra bold */
+      color: var(--text-dark);
+      margin-bottom: 20px; /* Reduced space */
+      line-height: 1.1;
+    }
+
+    .premium-content p {
+      font-size: 1.3rem; /* Larger paragraph */
+      color: var(--text-medium);
+      margin-bottom: 40px; /* Space before features/CTA */
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* --- Features Section (Example) --- */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px; /* Space between feature cards */
+      margin-top: 40px; /* Space below main content */
+      padding: 0 20px; /* Padding for the grid */
+      max-width: 1200px; /* Max width for features */
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .feature-card {
+      background: var(--bg-white);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      text-align: left;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-card i {
+      font-size: 2.5rem;
+      color: var(--primary-blue);
+      margin-bottom: 15px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .feature-card p {
+      font-size: 1rem;
+      color: var(--text-light);
+      line-height: 1.5;
+      margin-bottom: 0; /* No margin at the bottom of feature p */
+    }
+
+
+    /* --- Call to Action Button (Optional, can be a payment button too) --- */
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(45deg, var(--primary-blue), var(--secondary-blue));
+      color: white;
+      padding: 15px 40px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.15rem;
+      margin-top: 50px; /* Space below content */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0, 114, 255, 0.2);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(0, 114, 255, 0.3);
+    }
+
+
+    /* --- Responsive Adjustments --- */
+    @media (max-width: 1024px) {
+      .navbar {
+        padding: 15px 30px;
+      }
+      .premium-content h1 {
+        font-size: 3.5rem;
+      }
+      .premium-content p {
+        font-size: 1.2rem;
+      }
+      .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        padding: 0 15px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+      }
+      .navbar .nav-links {
+        gap: 20px;
+      }
+      .premium-section {
+        padding: 40px 15px;
+      }
+      .premium-content h1 {
+        font-size: 2.8rem;
+        margin-bottom: 15px;
+      }
+      .premium-content p {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+      }
+      .feature-card {
+        padding: 25px;
+      }
+      .feature-card i {
+        font-size: 2rem;
+      }
+      .feature-card h3 {
+        font-size: 1.3rem;
+      }
+      .feature-card p {
+        font-size: 0.95rem;
+      }
+      .cta-button {
+        padding: 12px 30px;
+        font-size: 1rem;
+        margin-top: 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 10px 15px;
+      }
+      .navbar .logo {
+        font-size: 1.5rem;
+      }
+      .navbar .nav-links {
+        display: none; /* Hide nav links on very small screens, can add a hamburger menu */
+      }
+      .premium-content h1 {
+        font-size: 2.2rem;
+      }
+      .premium-content p {
+        font-size: 1rem;
+      }
+      .features-grid {
+        grid-template-columns: 1fr; /* Stack features vertically */
+      }
+      .feature-card {
+        text-align: center; /* Center text in stacked cards */
+      }
+      .feature-card i {
+        margin-bottom: 10px; /* Adjust icon margin */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <nav class="nav-links">
+      <a href="#">Features</a>
+      <a href="#">Pricing</a>
+      <a href="#">About Us</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <main class="premium-section">
+    <div class="premium-content">
+      <h1>Unlock-Premium <br> Premium Features!</h1>
+      <p>Dive into an enhanced experience with our premium features. Enjoy advanced tools, priority support, and an ad-free environment designed to boost your productivity and streamline your workflow. Upgrade today and take your experience to the next level!</p>
+
+      <a href="" class="cta-button">See Pricing & Upgrade</a>
+
+      </div>
+  </main>
+
+  <section class="features-grid" id="pricing">
+    <div class="feature-card">
+      <i class="fas fa-rocket"></i>
+      <h3>Blazing Fast Performance</h3>
+      <p>Experience unparalleled speed and responsiveness with our optimized premium servers.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-shield-alt"></i>
+      <h3>Enhanced Security</h3>
+      <p>Your data is protected with advanced encryption and top-tier security protocols.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-headset"></i>
+      <h3>Priority Support</h3>
+      <p>Get immediate assistance from our dedicated support team, available 24/7.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-ad"></i>
+      <h3>Ad-Free Experience</h3>
+      <p>Enjoy an uninterrupted workflow without any distractions from advertisements.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-chart-line"></i>
+      <h3>Advanced Analytics</h3>
+      <p>Gain deeper insights with detailed reports and customizable dashboards.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-cloud-upload-alt"></i>
+      <h3>Unlimited Storage</h3>
+      <p>Store all your essential files and projects without worrying about space limits.</p>
+    </div>
+  </section>
+
+  <script>
+    // Payment functions (if you decide to put them directly on this page)
+    async function initiatePaytm() {
+      const statusEl = document.getElementById("status");
+      if (statusEl) {
+        statusEl.className = "status";
+        statusEl.innerText = "Redirecting to Paytm...";
+
+        try {
+          const res = await fetch("/api/paytm/initiate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ amount: 100 })
+          });
+
+          if (!res.ok) throw new Error("Failed to initiate Paytm payment");
+
+          const data = await res.json();
+
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = "https://securegw-stage.paytm.in/order/process";
+
+          for (let key in data) {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = key;
+            input.value = data[key];
+            form.appendChild(input);
+          }
+
+          document.body.appendChild(form);
+          form.submit();
+        } catch (err) {
+          console.error(err);
+          statusEl.classList.add("error");
+          statusEl.innerText = "Paytm payment failed. Please try again.";
+        }
+      } else {
+        alert("Paytm integration logic would go here!");
+      }
+    }
+
+    function initiateRazorpay() {
+      const statusEl = document.getElementById("status");
+      if (statusEl) {
+        statusEl.className = "status";
+        statusEl.innerText = "Razorpay integration coming soon...";
+      } else {
+        alert("Razorpay integration logic would go here!");
+      }
+    }
+
+    function initiateUPI() {
+      const statusEl = document.getElementById("status");
+      if (statusEl) {
+        statusEl.className = "status";
+        statusEl.innerText = "UPI integration coming soon...";
+      } else {
+        alert("UPI integration logic would go here!");
+      }
+    }
+  </script>
+
+</body>
+</html>

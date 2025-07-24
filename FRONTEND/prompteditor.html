@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prompt Editor - PromptCraft</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #f7f9fc;
+      color: #333;
+      padding: 20px;
+      background-color: #7FFFD4 ;
+      
+    }
+
+    #root {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h1, h2, h3 {
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 15px;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      resize: vertical;
+      margin-bottom: 15px;
+      background: #fafafa;
+    }
+
+    button {
+      background: #4F46E5;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      margin: 6px 6px 12px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease-in-out;
+    }
+
+    button:hover {
+      background: #3730A3;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 10px;
+      padding-left: 0;
+    }
+
+    ul li {
+      background: #f0f4ff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 12px;
+    }
+
+    #githubModal {
+      background: rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    #githubModal > div {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      max-width: 400px;
+      width: 90%;
+    }
+
+    @media (max-width: 600px) {
+      #root {
+        padding: 15px;
+      }
+
+      button {
+        width: 100%;
+        margin: 8px 0;
+      }
+
+      textarea {
+        height: 120px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <h1>Prompt Editor</h1>
+
+    <textarea id="userInput" placeholder=" Write your prompt here..."></textarea>
+
+    <!-- Local draft save -->
+    <button id="savePromptBtn">Save Draft Locally</button>
+
+    <!-- Save version to backend -->
+    <button id="saveVersionBtn">Save Version to Server</button>
+
+    <!-- GitHub Push -->
+    <button id="pushToGitHubBtn">Push to GitHub</button>
+
+    <!-- Draft history -->
+    <h3> Local Draft History</h3>
+    <ul id="historyList"></ul>
+
+    <!-- Server versions -->
+    <h3> Saved Versions</h3>
+    <ul id="versionList"></ul>
+
+    <!-- GitHub Modal -->
+    <div id="githubModal">
+      <div>
+        <h3>Push to GitHub</h3>
+        <input placeholder="Repo (e.g., user/repo)" id="gh-repo" />
+        <input placeholder="Path (e.g., prompts/prompt1.md)" id="gh-path" />
+        <input placeholder="Commit Message" id="gh-msg" />
+        <button onclick="confirmPush()">Push</button>
+        <button onclick="closeModal()"> Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="PromptEditor.js"></script>
+</body>
+</html>

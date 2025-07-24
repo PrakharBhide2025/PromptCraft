@@ -1,0 +1,167 @@
+/* Global Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #67b26f, #4ca2cd); /* Gradient background */
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Container for the app */
+#root {
+  width: 90%;
+  max-width: 1200px;
+  padding: 40px;
+  background-color: #ffffff;
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 1.5s ease-out forwards;
+  box-sizing: border-box;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header Styles */
+h1 {
+  font-family: 'Poppins', sans-serif;
+  color: #4a90e2;
+  font-size: 3.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Paragraph Styles */
+p {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* Button Styles */
+.btn {
+  background-color: #4a90e2;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+.btn:hover {
+  background-color: #357ab7;
+  transform: scale(1.05);
+}
+
+/* Section Styles */
+.section {
+  width: 100%;
+  padding: 30px 0;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: none;
+  transition: box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.section h2 {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Card Layout for Features */
+.feature-cards-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.feature-card {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: calc(33.333% - 20px);
+  min-width: 280px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .feature-card {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 600px) {
+  .feature-card {
+    width: 100%;
+  }
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.feature-card h3 {
+  font-family: 'Poppins', sans-serif;
+  color: #4a90e2;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  color: #666;
+  font-size: 1rem;
+}
+
+/* Footer Styles */
+footer {
+  margin-top: 40px;
+  color: #fff;
+  font-size: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}

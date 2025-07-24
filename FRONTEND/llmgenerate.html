@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LLM Generate</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f4f6f8;
+      background-color: #BAEDE6;
+    }
+    .navbar {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 16px;
+      text-align: center;
+    }
+    .btn {
+      margin: 8px;
+      padding: 10px 20px;
+      font-weight: 600;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #0056b3;
+      transform: scale(1.05);
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    textarea {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 6px;
+    }
+    #outputArea {
+      margin-top: 20px;
+      background: #e8f0fe;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <button class="btn" onclick="navigateTo('llmgenerate.html')">LLM Generate</button>
+    <button class="btn" onclick="navigateTo('feedback.html')">Feedback</button>
+    <button class="btn" onclick="navigateTo('history.html')">LLM History</button>
+    <button class="btn" onclick="navigateTo('evaluation.html')">Evaluation</button>
+    <button class="btn" onclick="navigateTo('analytics.html')">Analytics</button>
+  </div>
+  <div class="container">
+    <h1>Generate Prompt</h1>
+    <textarea id="promptInput" rows="5" placeholder="Enter your prompt..."></textarea>
+    <br><br>
+    <button id="generateBtn" class="btn">Generate</button>
+    <div id="outputArea"></div>
+  </div>
+  <script>
+    function navigateTo(page) {
+      window.location.href = page;
+    }
+    document.getElementById("generateBtn").addEventListener("click", () => {
+      const input = document.getElementById("promptInput").value.trim();
+      const output = document.getElementById("outputArea");
+      if (!input) {
+        output.textContent = "Please enter a prompt.";
+        return;
+      }
+      output.textContent = "Simulated LLM response for: " + input;
+    });
+  </script>
+</body>
+</html>

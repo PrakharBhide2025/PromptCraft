@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #0086c3;
+        }
+        .container {
+            display: flex;
+            width: 800px;
+            height: 500px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+            position: relative;
+        }
+        .form-container {
+            width: 50%;
+            padding: 40px;
+            position: absolute;
+            top: 0;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+            background: white;
+        }
+        .signin-container {
+            left: 0;
+            transform: translateX(0);
+            z-index: 2;
+        }
+        .signup-container {
+            left: 0;
+            transform: translateX(100%);
+            z-index: 1;
+        }
+        .toggle-container {
+            width: 50%;
+            background: linear-gradient(to right, #0086c3, #00b4db);
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            transition: transform 0.5s ease-in-out;
+            position: absolute;
+            right: 0;
+            height: 100%;
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .social-icons img {
+            width: 30px;
+            cursor: pointer;
+        }
+        .forgot-password {
+            display: block;
+            text-align: right;
+            font-size: 12px;
+            margin-bottom: 10px;
+            color: #007BFF;
+            cursor: pointer;
+        }
+        .toggle-button {
+            background: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            color: black;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .toggle-button:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+        /* Style for error message */
+        .error-message {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+    </style>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container signin-container" id="signin">
+            <h2>Login</h2>
+            <div class="social-icons">
+                <div id="google-button"></div>
+            </div>
+            <p>or use your email/password</p>
+            <input type="email" id="email" placeholder="Email">
+            <p class="error-message" id="email-error">Invalid email format</p>
+            <input type="password" id="password" placeholder="Password">
+            <a class="forgot-password">Forgot Your Password?</a>
+            <button id="login-btn">Login</button>
+        </div>
+        
+        <div class="toggle-container" id="toggle">
+            <h2>Welcome Back!</h2>
+            <p>Enter your personal details to use all of site features</p>
+            <a href="SignUp.html">
+                <button class="toggle-button" onclick="toggleForms()">Sign Up</button>
+            </a>
+        </div>
+    </div>
+    <script>
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            window.location.href = 'get-started.html';
+        }
+        function validateEmail(email) {
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return emailRegex.test(email);
+        }
+    
+        document.getElementById("email").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                checkEmail();
+            }
+        });
+        document.getElementById("email").addEventListener("blur", checkEmail);
+        window.onload = () => {
+        google.accounts.id.initialize({
+            client_id: "765905063785-l425djnuf3bollai3piog45bah4jbdc7.apps.googleusercontent.com",
+            callback: handleGoogleSignIn
+        });
+
+        google.accounts.id.renderButton(
+            document.getElementById("google-button"),
+            { theme: "outline", size: "large" }
+        );
+    };
+
+    function handleGoogleSignIn(response) {
+        const payload = JSON.parse(atob(response.credential.split('.')[1]));
+        const email = payload.email;
+        const name = payload.name;
+
+        const adminEmails = ["prakhar@admin.com", "admin@example.com"];
+        const role = adminEmails.includes(email) ? "admin" : "user";
+
+        const fakeToken = `header.${btoa(JSON.stringify({ sub: email, role, exp: Math.floor(Date.now() / 1000) + 3600 }))}.signature`;
+
+        localStorage.setItem("accessToken", fakeToken);
+        localStorage.setItem("isLoggedIn", "true");
+
+        alert(`Welcome ${name}! Logged in with Google.`);
+
+        if (role === "admin") {
+            window.location.href = "admin-users.html";
+        } else {
+            window.location.href = "get-started.html";
+        }
+    }
+    
+        function checkEmail() {
+            const emailField = document.getElementById("email");
+            const errorMessage = document.getElementById("email-error");
+    
+            if (!validateEmail(emailField.value)) {
+                errorMessage.style.display = "block";
+            } else {
+                errorMessage.style.display = "none";
+            }
+        }
+        document.getElementById("login-btn").addEventListener("click", async function () {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    if (!validateEmail(email)) {
+        alert("Invalid email.");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:8000/api/v1/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            localStorage.setItem("accessToken", data.access_token);
+            localStorage.setItem("isLoggedIn", "true");
+
+            const payload = JSON.parse(atob(data.access_token.split('.')[1]));
+            if (payload.role === "admin") {
+                window.location.href = "admin-users.html";
+            } else {
+                window.location.href = "get-started.html";
+            }
+        } else {
+            alert(data.detail || "Login failed.");
+        }
+
+    } catch (err) {
+        console.error("Login error:", err);
+        alert("An error occurred. Please try again.");
+    }
+});
+    </script>
+</body>
+</html>
+

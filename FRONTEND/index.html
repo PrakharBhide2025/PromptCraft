@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PromptCraft - Prompt Engineering Toolkit</title>
+
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico">
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #67b26f, #4ca2cd);
+      /* Gradient background */
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      /* Use min-height to ensure content fits */
+      text-align: center;
+      overflow-x: hidden;
+      /* Prevent horizontal scroll */
+      box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+    }
+
+    /* Container for the app */
+    #root {
+      width: 90%; /* Adjusted to 90% for better responsiveness */
+      max-width: 1200px;
+  
+      padding: 40px;
+      background-color: #ffffff;
+      box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      /* Rounded corners */
+      display: flex; /* Use flexbox to stack children */
+      flex-direction: column; /* Stack vertically */
+      align-items: center; /* Center horizontally */
+      animation: fadeIn 1.5s ease-out forwards; /* Keep the end state of the animation */
+      box-sizing: border-box;
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Header Styles */
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      color: #4a90e2;
+      /* Blue color for a professional feel */
+      font-size: 3.5rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-align: center; /* Ensure text is centered */
+    }
+
+    /* Paragraph Styles */
+    p {
+      font-size: 1.3rem;
+      color: #333;
+      /* Dark gray text for readability */
+      margin-bottom: 30px;
+      line-height: 1.6;
+      text-align: center; /* Ensure text is centered */
+    }
+
+    /* Button Styles */
+    .btn {
+      background-color: #4a90e2;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      text-transform: uppercase;
+      margin-bottom: 30px; /* Space below the button */
+    }
+
+    .btn:hover {
+      background-color: #357ab7;
+      /* Darker shade of blue on hover */
+      transform: scale(1.05);
+      /* Slight scale-up on hover */
+    }
+
+    /* Section Styles */
+    .section {
+      width: 100%; /* Make the section take full width of its parent (#root) */
+      padding: 30px 0; /* Adjusted padding to control inner spacing */
+      background-color: #ffffff; /* Explicitly set background to white for the section */
+      border-radius: 10px;
+      box-shadow: none; /* Remove shadow here if it's already on #root */
+      transition: box-shadow 0.3s ease;
+      box-sizing: border-box; /* Ensure padding is included in width */
+    }
+
+    .section h2 {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    /* Card Layout for Features */
+    .feature-cards-container {
+      display: flex;
+      justify-content: center; /* Center cards horizontally */
+      flex-wrap: wrap; /* Allow cards to wrap to the next line */
+      gap: 20px; /* Space between cards */
+      padding: 0 20px; /* Add horizontal padding to the container */
+      box-sizing: border-box;
+    }
+
+    .feature-card {
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: calc(33.333% - 20px); /* Distribute width for 3 cards, accounting for gap */
+      min-width: 280px; /* Ensure cards don't get too small */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: left; /* Align text within cards */
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 900px) {
+      .feature-card {
+        width: calc(50% - 20px);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .feature-card {
+        width: 100%;
+      }
+    }
+
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .feature-card h3 {
+      font-family: 'Poppins', sans-serif;
+      color: #4a90e2;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      color: #666;
+      font-size: 1rem;
+    }
+
+    /* Footer Styles */
+    footer {
+      margin-top: 40px;
+      color: #fff;
+      font-size: 1rem;
+      position: relative; /* Position relative to allow z-index if needed */
+      z-index: 1; /* Ensure footer is above the gradient background */
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    nav .btn {
+  background: linear-gradient(135deg, #4a90e2, #007aff);
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  margin: 5px;
+  text-transform: capitalize;
+}
+
+nav .btn:hover {
+  background: linear-gradient(135deg, #357ab7, #005ecb);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+nav {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <h1>Welcome to PromptCraft</h1>
+    <p>Your go-to toolkit for optimizing and version-controlling prompts for code generation, debugging, and technical documentation.</p>
+    <button class="btn" onclick="window.location.href='login.html';">Login to Get Started</button>
+    <!-- Place this INSIDE <body>, after <h1> and <p> and before <section> -->
+<!-- 🔽 Script to show admin nav if logged-in user is admin -->
+<script>
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user?.role === "admin") {
+    document.getElementById("admin-nav").style.display = "block";
+  }
+</script>
+    <section class="section">
+      <h2>Key Features</h2>
+      <div class="feature-cards-container">
+        <div class="feature-card">
+          <h3>Version Control</h3>
+          <p>Efficiently manage and version control your prompts to keep track of changes over time.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Optimized Prompts</h3>
+          <p>Enhance your prompts for improved responses from AI models like GPT-3 and others.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Cross-Platform Support</h3>
+          <p>Use our toolkit across platforms to easily integrate and enhance your development workflows.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

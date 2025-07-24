@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <script src="admin-check.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ADD8E6;
+      color: #f1f5f9;
+    }
+    .navbar {
+      background-color: #1e293b;
+      padding: 20px;
+      text-align: center;
+    }
+    .btn {
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #3b82f6;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn:hover {
+      background-color: #2563eb;
+      transform: scale(1.05);
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      text-align: center;
+    }
+    .card {
+      background-color: #1e293b;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <button class="btn" onclick="navigate('admin-users.html')">Admin Users</button>
+    <button class="btn" onclick="navigate('admin-prompts.html')">Admin Prompts</button>
+    <button class="btn" onclick="navigate('admin-analytics.html')">Admin Dashboard</button>
+  </div>
+  <div class="container">
+    <div class="card">
+      <h1>Admin Analytics Dashboard</h1>
+      <p>Here you can view system usage statistics, logs, and performance data.</p>
+    </div>
+  </div>
+  <script>
+  function navigate(page) {
+    window.location.href = page;
+  }
+
+  // Admin access check
+  try {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      throw new Error("No token");
+    }
+
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const payload = JSON.parse(decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join('')));
+
+    if (!payload || payload.role !== "admin") {
+      alert("Access denied. Admins only.");
+      window.location.href = "login.html";
+    }
+  } catch (err) {
+    console.error("Invalid token or access error:", err);
+    alert("Access denied or invalid session.");
+    window.location.href = "login.html";
+  }
+</script>
+
+</body>
+</html>

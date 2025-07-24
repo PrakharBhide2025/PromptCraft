@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Evaluation</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f3f5;
+      margin: 0;
+       background-color: #A0E7E5;
+    }
+    .navbar {
+      background: #fff;
+      padding: 16px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+    .btn {
+      margin: 8px;
+      padding: 10px 20px;
+      background: #6610f2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #520dc2;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    .metric {
+      background: #fff;
+      padding: 16px;
+      margin: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <button class="btn" onclick="navigateTo('llmgenerate.html')">LLM Generate</button>
+    <button class="btn" onclick="navigateTo('feedback.html')">Feedback</button>
+    <button class="btn" onclick="navigateTo('history.html')">LLM History</button>
+    <button class="btn" onclick="navigateTo('evaluation.html')">Evaluation</button>
+    <button class="btn" onclick="navigateTo('analytics.html')">Analytics</button>
+  </div>
+  <div class="container">
+    <h1>Prompt Evaluation</h1>
+    <div class="metric">Accuracy: 92%</div>
+    <div class="metric">Relevance Score: 8.7/10</div>
+    <div class="metric">Response Time: 1.2s</div>
+  </div>
+  <script>
+    function navigateTo(page) {
+      window.location.href = page;
+    }
+  </script>
+</body>
+</html>

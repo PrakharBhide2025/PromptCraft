@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Feedback</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9fafc;
+      margin: 0;
+       background-color: #87E0E0;
+    }
+    .navbar {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 16px;
+      text-align: center;
+    }
+    .btn {
+      margin: 8px;
+      padding: 10px 20px;
+      font-weight: 600;
+      background: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #1e7e34;
+    }
+    .container {
+      max-width: 700px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    textarea {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 6px;
+    }
+    #feedbackMsg {
+      margin-top: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <button class="btn" onclick="navigateTo('llmgenerate.html')">LLM Generate</button>
+    <button class="btn" onclick="navigateTo('feedback.html')">Feedback</button>
+    <button class="btn" onclick="navigateTo('history.html')">LLM History</button>
+    <button class="btn" onclick="navigateTo('evaluation.html')">Evaluation</button>
+    <button class="btn" onclick="navigateTo('analytics.html')">Analytics</button>
+  </div>
+  <div class="container">
+    <h1>Submit Feedback</h1>
+    <form onsubmit="submitFeedback(event)">
+      <textarea id="feedbackText" rows="5" placeholder="Your feedback..." required></textarea>
+      <br><br>
+      <button type="submit" class="btn">Submit</button>
+    </form>
+    <div id="feedbackMsg"></div>
+  </div>
+  <script>
+    function navigateTo(page) {
+      window.location.href = page;
+    }
+    function submitFeedback(event) {
+      event.preventDefault();
+      const text = document.getElementById("feedbackText").value.trim();
+      if (text) {
+        document.getElementById("feedbackMsg").textContent = "Thanks for your feedback!";
+        document.getElementById("feedbackText").value = "";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Analytics</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #fafafa;
+       background-color: #CEF2EE;
+    }
+    .navbar {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 16px;
+      text-align: center;
+    }
+    .btn {
+      margin: 8px;
+      padding: 10px 20px;
+      background-color: #fd7e14;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #e8590c;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 10px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <button class="btn" onclick="navigateTo('llmgenerate.html')">LLM Generate</button>
+    <button class="btn" onclick="navigateTo('feedback.html')">Feedback</button>
+    <button class="btn" onclick="navigateTo('history.html')">LLM History</button>
+    <button class="btn" onclick="navigateTo('evaluation.html')">Evaluation</button>
+    <button class="btn" onclick="navigateTo('analytics.html')">Analytics</button>
+  </div>
+  <div class="container">
+    <h1>LLM Usage Analytics</h1>
+    <div class="card">Total Prompts Today: 24</div>
+    <div class="card">Most Used Feature: Evaluation</div>
+    <div class="card">Avg Prompt Length: 58 chars</div>
+  </div>
+  <script>
+    function navigateTo(page) {
+      window.location.href = page;
+    }
+  </script>
+</body>
+</html>

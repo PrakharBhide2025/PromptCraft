@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LLM History</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+    }
+    .navbar {
+      background: #fff;
+      padding: 16px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+    .btn {
+      margin: 8px;
+      padding: 10px 20px;
+      background: #17a2b8;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #117a8b;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+    }
+    .history-item {
+      padding: 12px;
+      background: #fff;
+      border-radius: 6px;
+      margin: 10px 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <button class="btn" onclick="navigateTo('llmgenerate.html')">LLM Generate</button>
+    <button class="btn" onclick="navigateTo('feedback.html')">Feedback</button>
+    <button class="btn" onclick="navigateTo('history.html')">LLM History</button>
+    <button class="btn" onclick="navigateTo('evaluation.html')">Evaluation</button>
+    <button class="btn" onclick="navigateTo('analytics.html')">Analytics</button>
+  </div>
+  <div class="container">
+    <h1>Prompt History</h1>
+    <div id="historyList"></div>
+  </div>
+  <script>
+    function navigateTo(page) {
+      window.location.href = page;
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      const history = JSON.parse(localStorage.getItem("promptHistory")) || [
+        "Describe a neural network.",
+        "Write Python code for bubble sort.",
+        "Explain transformers in NLP."
+      ];
+      const container = document.getElementById("historyList");
+      if (history.length === 0) {
+        container.innerHTML = "<p>No history available.</p>";
+      } else {
+        container.innerHTML = history.map(item => `<div class="history-item">${item}</div>`).join('');
+      }
+    });
+  </script>
+</body>
+</html>
